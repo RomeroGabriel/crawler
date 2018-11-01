@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -15,7 +16,7 @@ import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 //propriedades: tamanho, localização, quantos filhos tem
-//arquivo scv
+//arquivo csv
 public class screenshot {
 
 	public static void getMudancas(WebDriver site, JavascriptExecutor Driver) {
@@ -32,6 +33,27 @@ public class screenshot {
 						shootingStrategy(ShootingStrategies.viewportRetina(100, 0, 0, 2)).
 						takeScreenshot(site, ele);
 				ImageIO.write(foto.getImage(), "PNG", new File("/home/romero/Imagens/"+nome));
+				String textProperties = "";
+				textProperties += "\nSize: "+ ele.getSize().toString() +"\n";
+				textProperties += "Location: "+ ele.getLocation().toString() +"\n";
+				
+				FileWriter writer = null;
+				
+				try
+				{
+					writer = new FileWriter("/home/romero/Imagens/arq.csv");
+					writer.append(textProperties);
+				}
+				catch(Exception e) { }
+				finally
+				{
+					try
+					{
+						writer.flush();
+						writer.close();
+					}
+					catch(Exception e) { }
+				}
 			}
 			catch(Exception e)
 			{

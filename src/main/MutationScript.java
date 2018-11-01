@@ -10,15 +10,17 @@ public class MutationScript {
 						"mutations.forEach(function(mutation){"+
 							"if(mutation.addedNodes.length > 0){"+
 								"mutation.addedNodes.forEach(function(currentValue, currentIndex, listObj) {"+
-									"console.log(currentValue);"+
 									"if(currentValue.nodeType == 1){"+
 										"window.mudancas.push(currentValue);"+
 									"}"+
 								"});"+
 							"}"+
+							"if(mutation.type == 'attributes'){"+
+								"console.log(mutation);" +
+							"}"+
 						"});"+
 					"});"+
-				"var observerConfig = { childList: true, characterData: true, subtree:true, attributes:true };"+
+				"var observerConfig = { childList: true, subtree:true, attributes: true, attributeOldValue: true };"+
 				"var targetNode = document.body;"+
 				"observer.observe(targetNode, observerConfig);";
 		Driver.executeScript(script);
