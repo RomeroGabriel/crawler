@@ -11,7 +11,6 @@ public class ElementsPage {
 	public static List<WebElement> getElements(WebDriver site, JavascriptExecutor Driver){
 		WebElement elem = site.findElement(By.tagName("body"));
 		List<WebElement> elements = elem.findElements(By.cssSelector("*:not(div):not(script):not(style)"));
-		//List<WebElement> elements = (List<WebElement>) Driver.executeScript("return document.body.children");
 		return elements;
 	}
 }

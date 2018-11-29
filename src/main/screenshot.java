@@ -42,6 +42,8 @@ public class screenshot {
 				Screenshot foto = 
 						new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(site, ele);
 				ImageIO.write(foto.getImage(), "PNG", new File("/home/romero/Imagens/"+nome));
+				
+				if(pai != null) pai.click();
 			}
 			catch(Exception e)
 			{
@@ -55,13 +57,8 @@ public class screenshot {
 			try 
 			{
 				ele = null;
-				pai = null;
 				ele = AddedNodes.get(i);
 				String nome = "AddedNodes:"+i;
-				if(!ele.isDisplayed()) {
-					pai = AddedNodes.get(i + 1);
-					acao.click(pai).pause(800).build().perform();
-				}
 				Screenshot foto = 
 						new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(site, ele);
 				ImageIO.write(foto.getImage(), "PNG", new File("/home/romero/Imagens/"+nome));

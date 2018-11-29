@@ -18,9 +18,8 @@ public class MutationScript {
 							"}"+
 							"if(mutation.type == 'attributes'){"+
 								"if(mutation.attributeName == 'aria-hidden' && mutation.oldValue == 'true' && mutation.target.attributes['aria-hidden'].value == 'false'){"+
-									//"window.mudancas.push({'filho': mutation.target, 'pai': mutation.target.previousSibling})"+
 									"window.Attributes.push(mutation.target);"+
-									"window.Attributes.push(mutation.target.previousSibling);"+
+									"window.Attributes.push(mutation.target.parentNode);"+
 								 "}"+
 							"}"+
 						"});"+

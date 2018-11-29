@@ -32,7 +32,9 @@ public class projeto {
 		for(int i = 0; i < Elements.size(); i++) {
 			atual = null;			
 			atual = Elements.get(i);
-			acao.moveToElement(atual).click().pause(300);
+			acao.moveToElement(atual).pause(300);
+			acao.build().perform();
+			acao.click().pause(300);
 			acao.build().perform();
 		}
 		screenshot.getMudancas(site, js, acao);
