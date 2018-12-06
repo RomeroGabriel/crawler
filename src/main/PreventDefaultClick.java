@@ -8,11 +8,7 @@ public class PreventDefaultClick {
 				"document.body.addEventListener('click', function (ev) {"
 				+ "ev.preventDefault();"
 				+ "ev.stopPropagation();"
-				+ "});";
-//				+"document.body.addEventListener('input', function (ev) {"
-//				 	//+ "ev.stopPropagation();"
-//				 	+ "ev.stopPropagation();"
-//				+ "});";	
+				+ "});";	
 		Driver.executeScript(script);
 	}
 }

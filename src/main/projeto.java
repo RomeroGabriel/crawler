@@ -18,9 +18,9 @@ public class projeto {
 		System.setProperty("webdriver.chrome.driver", "/home/romero/Documentos/Faculdade/IC/Drivers-Selenium/Navegadores/chromedriver");
 		
 		WebDriver site = new ChromeDriver();
-		//site.get("https://jqueryui.com/menu/");
+		//site.get("https://www.diogocezar.com/");
 		site.get("https://www.google.com/");
-		site.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		site.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		JavascriptExecutor js = (JavascriptExecutor) site;
 		List<WebElement> Elements = ElementsPage.getElements(site, js);
 		WebElement atual = null;
@@ -36,8 +36,9 @@ public class projeto {
 			acao.build().perform();
 			acao.click().pause(300);
 			acao.build().perform();
+			//Em vez de pegar todas as mudanças e depois passar, vê um elemento e tirar a screenshot logo em seguida
 		}
 		screenshot.getMudancas(site, js, acao);
-		site.close();
+		//site.close();
 	}
 }
