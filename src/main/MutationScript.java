@@ -1,34 +1,21 @@
 package main;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 public class MutationScript {
-	public static void Script(JavascriptExecutor Driver) {
-		String script =
-				"window.AddedNodes = [];"+
-				"window.Attributes = [];"+
-				"var observer = new MutationObserver(function(mutations) {" +
+	public static void ScriptPorElemento(JavascriptExecutor Driver, WebElement Element) {
+		String scriptPorElemento =
+				"window.MutationElement = [];"+
+				"window.observer = new MutationObserver(function(mutations) {" +
 						"mutations.forEach(function(mutation){"+
-							"if(mutation.addedNodes.length > 0){"+
-								"mutation.addedNodes.forEach(function(currentValue, currentIndex, listObj) {"+
-									"if(currentValue.nodeType == 1){"+
-										"window.AddedNodes.push(currentValue);"+
-									"}"+
-								"});"+
-							"}"+
-							"if(mutation.type == 'attributes'){"+
-								"if(mutation.attributeName == 'aria-hidden' && mutation.oldValue == 'true' && mutation.target.attributes['aria-hidden'].value == 'false'){"+
-									"mutation.target.tipo = 'filho';"+
-									"mutation.target.parentNode.tipo = 'pai';"+
-									"window.Attributes.push(mutation.target);"+
-									"window.Attributes.push(mutation.target.parentNode);"+
-								 "}"+
-							"}"+
+							"window.MutationElement.push(mutation.target);"+
+							"console.log(mutation);"+
 						"});"+
 					"});"+
-				"var observerConfig = { childList: true, subtree:true, attributes: true, attributeOldValue: true, characterData: true };"+
-				"var targetNode = document.body;"+
-				"observer.observe(targetNode, observerConfig);";
-		Driver.executeScript(script);
+				"var observerConfig = { childList: true, subtree:true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true };"+
+				"var targetNode = arguments[0];"+
+				"window.observer.observe(targetNode, observerConfig);";
+		Driver.executeScript(scriptPorElemento, Element);
 	}
 }
