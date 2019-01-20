@@ -7,7 +7,7 @@ public class PreventDefaultClick {
 		String script =				
 				"document.body.addEventListener('click', function (ev) {"
 				+ "ev.preventDefault();"
-				+ "ev.stopPropagation();"
+				//+ "ev.stopPropagation();"
 				+ "});";	
 		Driver.executeScript(script);
 	}

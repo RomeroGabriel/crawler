@@ -10,7 +10,6 @@ public class MutationScript {
 				"window.observer = new MutationObserver(function(mutations) {" +
 						"mutations.forEach(function(mutation){"+
 							"window.MutationElement.push(mutation.target);"+
-							"console.log(mutation);"+
 						"});"+
 					"});"+
 				"var observerConfig = { childList: true, subtree:true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true };"+
