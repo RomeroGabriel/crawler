@@ -17,25 +17,21 @@ public class projeto {
 	static String mainWindowHandle = null;
 	static List<WebElement> Elements = null;
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		System.setProperty("webdriver.chrome.driver", "/home/romero/Documentos/IC/Drivers-Selenium/Navegadores/chromedriver");
 		
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("start-maximized");	
 		driver = new ChromeDriver(options);
-		driver.get("https://jqueryui.com/menu/");
-		//driver.get("https://www.google.com/");
-		//driver.get("https://globoesporte.globo.com/");
-		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//driver.get("https://jqueryui.com/resources/demos/menu/default.html");
+		driver.get("https://www.google.com/");
 		js = (JavascriptExecutor) driver;
+		JSCode.setJquery(js);
 		acao = new Actions(driver);
 		mainWindowHandle = driver.getCurrentUrl();	
-		//driver.switchTo().frame(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[1]/iframe")));
-		//MutationScript.Teste(js, null);
-		percorreElementos(0);
+		//percorreElementos(0);
 		driver.close();
-		//1- Nem sempre o Elements será o mesmo depois de recarregar a página, não sei se isto é um problema ou não
 	}
 	
 	public static void percorreElementos(int i)
@@ -53,12 +49,14 @@ public class projeto {
 					acao.moveToElement(atual).pause(500);
 					acao.build().perform();					
 					if(screenshot.verificaJanela(driver, mainWindowHandle, js)) 
-						screenshot.getMudancasElemento(driver, js, i);				
+						System.out.println();
+//						screenshot.getMudancasElemento(driver, js, i);				
 					
 					acao.click().pause(500);
 					acao.build().perform();
 					if(screenshot.verificaJanela(driver, mainWindowHandle, js)) 
-						screenshot.getMudancasElemento(driver, js, i);										
+						System.out.println();
+//						screenshot.getMudancasElemento(driver, js, i);										
 				}
 			}
 		}
