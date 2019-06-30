@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -15,13 +16,15 @@ public class Crawler {
 	private Actions acao = null;
 	private JavascriptExecutor js = null;
 	private SaveImagens save;
+	private Write write;
 	
-	public Crawler(WebDriver driver, String url, SaveImagens save) {
+	public Crawler(WebDriver driver, String url, String path) throws IOException {
 		this.driver = driver;
 		this.url = url;
 		this.js = (JavascriptExecutor) driver;
 		this.acao = new Actions(driver);
-		this.save = save;
+		this.save = new SaveImagens(path, "https://www.google.com/", "Google");
+		this.write = new Write(path);
 	}
 	
 	public void Execute(int position) throws Exception {
@@ -36,51 +39,30 @@ public class Crawler {
 					this.js.executeScript(JSCode.SCRIPT_BY_ELEMENT, target);
 					this.acao.moveToElement(target).pause(500);
 					this.acao.build().perform();
-					CheckUpdates(position);
+					CheckUpdates(position, target, "Mouse ouver");
 					this.acao.click().pause(500);
 					this.acao.build().perform();
-					CheckUpdates(position);
+					CheckUpdates(position, target, "Click");
 				}
 			}
+			this.write.WriteJSON();
 		}
 		catch(Exception e)
 		{
 			//System.out.println(e.getMessage());
 			Execute(position + 1);
 		}
-	}
-	
-	public void CheckUpdates(int position) {
-		//if(SaveImagens.verificaJanela(this.driver, this.url, this.js)) {
-		if(this.save.verificaJanela(this.driver, this.js)) {
-			int mutation = this.save.getMudancasElemento(driver, js, position);
-			if(mutation > 0) {
-				System.out.println("Eba tem mutation");
-			}
+		finally
+		{
+			this.write.close();
 		}
 	}
 	
-//						if(mutation > 0) {
-//							JSONObject array = new JSONObject();
-//							array.put("Ação", "Mouse houver");
-//							array.put("Heigth", atual.getSize().getHeight());
-//							array.put("Width", atual.getSize().getWidth());
-//							array.put("Texto", atual.getText());
-//							
-//							JSONObject jsonObj = new JSONObject();
-//							jsonObj.put("Elemento " + i, array);
-//							String texto = jsonObj.toJSONString();
-							//String texto = "-------------------- \n Elemento: " + i +"\n";
-//							texto += "Ação: Mouse houver \n";
-//							texto += "Heith: " + atual.getSize().getHeight() + "\n";
-//							texto += "Width: " + atual.getSize().getWidth() + "\n";
-//							texto += "Texto: " + atual.getText() +"\n";
-//							texto += "Localização x: " + atual.getLocation().getX() +"\n";
-//							texto += "Localização y: " + atual.getLocation().getY() +"\n";
-//							texto += "Mutações do elemento \n";
-//							texto += screenshot.getInformacoesElemento(js);
-//							texto += "\n";
-//							w.writeJS(texto);
-//						}
-//					}										
+	public void CheckUpdates(int position, WebElement target, String type) {
+		if(this.save.verificaJanela(this.driver, this.js)) {
+			int mutation = this.save.getMudancasElemento(driver, js, position);
+			if(mutation > 0) 
+				this.write.addObject(position, target, type, this.save.getInformacoesElemento(js));
+		}
+	}						
 }

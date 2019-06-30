@@ -25,7 +25,7 @@ public class SaveImagens {
 		this.namePage = namePage;
 	}
 	
-	public static String getInformacoesElemento(JavascriptExecutor js){	
+	public String getInformacoesElemento(JavascriptExecutor js){	
 		return js.executeScript("return window.InformacoesElement;").toString();
 	}
 	

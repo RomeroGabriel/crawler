@@ -14,8 +14,7 @@ public class Main {
 		options.addArguments("start-maximized");
 		WebDriver driver = new ChromeDriver(options);
 		String path = "/home/romero/Imagens/IC/";
-		SaveImagens save = new SaveImagens(path, "https://www.google.com/", "Google");
-		Crawler c = new Crawler(driver, "https://www.google.com/", save);
+		Crawler c = new Crawler(driver, "https://www.google.com/", path);
 		c.Execute(0);
 		driver.close();
 	}
