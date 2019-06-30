@@ -13,16 +13,25 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 
-public class screenshot {
+public class SaveImagens {
 	
+	private String mainWindowHandle = null;
+	private String path;
+	private String namePage;
 	
-	public static void getMudancasElemento(WebDriver driver, JavascriptExecutor js, int NumElement){
+	public SaveImagens(String path, String mainWindowHandle, String namePage) {
+		this.path = path;
+		this.mainWindowHandle = mainWindowHandle;
+		this.namePage = namePage;
+	}
+	
+	public static String getInformacoesElemento(JavascriptExecutor js){	
+		return js.executeScript("return window.InformacoesElement;").toString();
+	}
+	
+	public int getMudancasElemento(WebDriver driver, JavascriptExecutor js, int NumElement){
 		@SuppressWarnings({"unchecked"})
 		List<WebElement> Mutations = (List<WebElement>) js.executeScript("return window.MutationElement;");
-		String dataElement = js.executeScript("return window.ElementData;").toString();
-		
-		System.out.println("Element data:");
-		System.out.println(dataElement);
 		WebElement ele = null;
 		for(int i = 0; i < Mutations.size(); i++)
 		{
@@ -33,20 +42,20 @@ public class screenshot {
 				ele = Mutations.get(i);
 				Screenshot foto = 
 					new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver, ele);
-				ImageIO.write(foto.getImage(), "PNG", new File("/home/romero/Imagens/IC/Google/"+nome));			
+				ImageIO.write(foto.getImage(), "PNG", new File(this.path + this.namePage + "/" + nome));
 			}
 			catch(Exception e)
 			{
-				System.out.println("*******************************\n"+ e.getMessage() + "\n");
 				System.out.println();
 			}
 		}
+		return Mutations.size();
 	}
 	
-	public static boolean verificaJanela(WebDriver driver, String mainWindowHandle, JavascriptExecutor js)
+	public boolean verificaJanela(WebDriver driver, JavascriptExecutor js)
 	{
 		String actualWindowHandle = driver.getCurrentUrl();
-		if(!mainWindowHandle.equals(actualWindowHandle)) {
+		if(!this.mainWindowHandle.equals(actualWindowHandle)) {
 			js.executeScript("window.history.go(-1)");
 			return false;
 		}

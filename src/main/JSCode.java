@@ -6,12 +6,16 @@ import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.JavascriptExecutor;
 
 public class JSCode {
+	
 	public final static String SCRIPT_BY_ELEMENT = 
 	"window.MutationElement = [];"+
+	"window.InformacoesElement = '';"+
 	"window.observer = new MutationObserver(function(mutations) {" +
-		"mutations.forEach(function(mutation){"+
+		"mutations.forEach(function(mutation, index){"+
 			"window.MutationElement.push(mutation.target);"+
-			"console.log(mutation.target.tagName);"+
+			"window.InformacoesElement += 'Mutação: ' + index + '\\n';"+
+			"window.InformacoesElement += 'Tag: ' + mutation.target.tagName + '\\n';"+
+			"window.InformacoesElement += 'Parent: ' + mutation.target.parentElement + '\\n';"+
 		"});"+
 	"});"+
 	"var observerConfig = { childList: true, subtree: true, attributes: true, characterData: false };"+
