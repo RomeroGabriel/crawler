@@ -9,13 +9,31 @@ public class JSCode {
 	
 	public final static String SCRIPT_BY_ELEMENT = 
 	"window.MutationElement = [];"+
-	"window.InformacoesElement = '';"+
+	"window.InformacoesElement = [];"+
+	"window.AllXPath = [];"+
+    "function getXPath (target) {" +
+    "   var xpath = '', tagName, parent = target.parentElement," +
+    "       index, children;" +
+    "   while (parent != null) {" +
+    "       tagName = target.tagName.toLowerCase();" +
+    "       children = [].slice.call(parent.children);" +
+    "       index = children.indexOf(target) + 1;" +
+    "       xpath = '/' + tagName + '[' + index + ']' + xpath;" +
+    "       target = parent;" +
+    "       parent = target.parentElement;" +
+    "   };" +
+    "   return xpath;" +
+    "}" +
 	"window.observer = new MutationObserver(function(mutations) {" +
 		"mutations.forEach(function(mutation, index){"+
-			"window.MutationElement.push(mutation.target);"+
-			"window.InformacoesElement += 'Mutação: ' + index + '\\n';"+
-			"window.InformacoesElement += 'Tag: ' + mutation.target.tagName + '\\n';"+
-			"window.InformacoesElement += 'Parent: ' + mutation.target.parentElement + '\\n';"+
+			"let xpathMutation = getXPath(mutation.target);"+
+			"if(!window.AllXPath.includes(xpathMutation)) {"+
+				"window.AllXPath.push(xpathMutation);"+
+				"mutation.target['xpath'] = xpathMutation;"+
+				"window.MutationElement.push(mutation.target);"+
+				"let info = { 'Mutacao': index, 'Tag': mutation.target.tagName, 'XPath': xpathMutation };"+
+				"window.InformacoesElement.push(info);"+
+			"}" +			
 		"});"+
 	"});"+
 	"var observerConfig = { childList: true, subtree: true, attributes: true, characterData: false };"+

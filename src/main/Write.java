@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,14 +20,14 @@ public class Write {
 		this.array = new JSONArray();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void addObject(int position, WebElement target, String type, String mutations) {
+	@SuppressWarnings({ "unchecked" })
+	public void addObject(int position, WebElement target, String type, List<?> mutations) {
 		this.object = new JSONObject();
 		this.object.put("Elemento", position);
 		this.object.put("Ação", type);
 		this.object.put("Heigth", target.getSize().getHeight());
 		this.object.put("Width", target.getSize().getWidth());
-		this.object.put("Texto", target.getText());
+		//this.object.put("Texto", target.getText());
 		this.object.put("Localização x", target.getLocation().getX());
 		this.object.put("Localização y", target.getLocation().getY());
 		this.object.put("Info mutation", mutations);

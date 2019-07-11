@@ -25,8 +25,8 @@ public class SaveImagens {
 		this.namePage = namePage;
 	}
 	
-	public String getInformacoesElemento(JavascriptExecutor js){	
-		return js.executeScript("return window.InformacoesElement;").toString();
+	public List<?> getInformacoesElemento(JavascriptExecutor js){
+		return (List<?>)js.executeScript("return window.InformacoesElement;");
 	}
 	
 	public int getMudancasElemento(WebDriver driver, JavascriptExecutor js, int NumElement){
@@ -36,7 +36,7 @@ public class SaveImagens {
 		for(int i = 0; i < Mutations.size(); i++)
 		{
 			ele = null;		
-			String nome = "Elemento:"+ NumElement +"Mutacao"+i;
+			String nome = "Elemento: "+ NumElement +"Mutacao: "+i;
 			try 
 			{
 				ele = Mutations.get(i);
