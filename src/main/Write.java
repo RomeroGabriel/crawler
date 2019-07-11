@@ -16,7 +16,7 @@ public class Write {
 	JSONObject object = null;
 	
 	public Write(String path) throws IOException {
-		this.writer = new FileWriter(new File( path +"Coleta.json"));
+		this.writer = new FileWriter(new File( path +"ColetaTesteHeightWidth.json"));
 		this.array = new JSONArray();
 	}
 	

@@ -31,7 +31,14 @@ public class JSCode {
 				"window.AllXPath.push(xpathMutation);"+
 				"mutation.target['xpath'] = xpathMutation;"+
 				"window.MutationElement.push(mutation.target);"+
-				"let info = { 'Mutacao': index, 'Tag': mutation.target.tagName, 'XPath': xpathMutation };"+
+				"let info = { " +
+				 	"'Mutacao': index, 'Tag': mutation.target.tagName, 'XPath': xpathMutation, " +
+				 	"'Left': parseInt($(mutation.target).offset().left)," +
+				 	"'Top': parseInt($(mutation.target).offset().top)," +
+				 	"'InnetHTML': mutation.target.innerHTML.length,"+
+				 	"'Height': parseInt($(mutation.target).offset().outerHeight())," +
+				 	"'Width': parseInt($(mutation.target).offset().outerWidth())," +
+				 "};"+
 				"window.InformacoesElement.push(info);"+
 			"}" +			
 		"});"+
@@ -40,7 +47,7 @@ public class JSCode {
 	"var targetNode = arguments[0];"+
 	"window.observer.observe(targetNode, observerConfig);";	
 	
-	//classe com a injeção do jquery: https://github.com/watinha/collector/blob/master/src/main/java/edu/utfpr/xbi/collector/browsers/MobileBrowser.java
+	//https://github.com/watinha/collector/blob/master/src/main/java/edu/utfpr/xbi/collector/browsers/MobileBrowser.java
 	//capturar as informações que tem no COLLECTOR_JS
 	
 	public static void setJquery(JavascriptExecutor js) throws Exception {
