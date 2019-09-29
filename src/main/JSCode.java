@@ -36,8 +36,8 @@ public class JSCode {
 				 	"'Left': parseInt($(mutation.target).offset().left)," +
 				 	"'Top': parseInt($(mutation.target).offset().top)," +
 				 	"'InnetHTML': mutation.target.innerHTML.length,"+
-				 	"'Height': parseInt($(mutation.target).offset().outerHeight())," +
-				 	"'Width': parseInt($(mutation.target).offset().outerWidth())," +
+//				 	"'Height': parseInt($(mutation.target).offset().outerHeight())," +
+//				 	"'Width': parseInt($(mutation.target).offset().outerWidth())" +
 				 "};"+
 				"window.InformacoesElement.push(info);"+
 			"}" +			

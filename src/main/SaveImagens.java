@@ -32,23 +32,23 @@ public class SaveImagens {
 	public int getMudancasElemento(WebDriver driver, JavascriptExecutor js, int NumElement){
 		@SuppressWarnings({"unchecked"})
 		List<WebElement> Mutations = (List<WebElement>) js.executeScript("return window.MutationElement;");
-//		WebElement ele = null;
-//		for(int i = 0; i < Mutations.size(); i++)
-//		{
-//			ele = null;		
-//			String nome = "Elemento: "+ NumElement +"Mutacao: "+i;
-//			try 
-//			{
-//				ele = Mutations.get(i);
-//				Screenshot foto = 
-//					new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver, ele);
-//				ImageIO.write(foto.getImage(), "PNG", new File(this.path + this.namePage + "/" + nome));
-//			}
-//			catch(Exception e)
-//			{
-//				System.out.println();
-//			}
-//		}
+		WebElement ele = null;
+		for(int i = 0; i < Mutations.size(); i++)
+		{
+			ele = null;		
+			String nome = "Elemento: "+ NumElement +"Mutacao: "+i;
+			try 
+			{
+				ele = Mutations.get(i);
+				Screenshot foto = 
+					new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(driver, ele);
+				ImageIO.write(foto.getImage(), "PNG", new File(this.path + this.namePage + "/" + nome));
+			}
+			catch(Exception e)
+			{
+				System.out.println();
+			}
+		}
 		return Mutations.size();
 	}
 	
